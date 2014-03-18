@@ -1,0 +1,29 @@
+@CHARSET "UTF-8";
+.headerDiv{height: 20%; }
+.containerDiv{height:100%;margin-left:10px;}
+.homeButton{color: blue;font-size:300%; text-decoration:none;}
+.homeButton:hover{color:purple;}
+.subHeaderDiv{color:black;font-size:200%; text-decoration:none;margin-right: 20px;}
+
+.events{background-color: grey; width: 65%;float:left;}
+.eventList{border: 2px solid; margin: 5px;}
+.calendar{width: 30%; float: right;border-left: thick solid yellow; border-width:10px;}
+.gapi{margin: 10px;}
+.search{background-color: black; color: white;}
+
+
+.about{height: 500px; border:2px solid;}
+.aboutTitle{color:blue; font-size:200%; text-align:center;}
+.aboutContent{margin-top: 10px; margin-bottom: 50px; margin-left: 50px; margin-right: 50px;}
+
+.dummy{margin-top: 20px; margin-right: 20px; float: right;background-color: blue; font-size:200%; border-radius:5px;}
+.dummyText{margin: 30px;}
+.hline{height: 10px; background-color: yellow;}
+.eventCal{}
+
+
+
+
+
+
+

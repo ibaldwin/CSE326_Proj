@@ -6,7 +6,7 @@
 %>
 <meta charset="ISO-8859-1">
 <link rel="stylesheet" type="text/css" href="Container.css">
-<title>UserHome</title>
+<title>About</title>
 </head>
 <body>
 
@@ -25,9 +25,16 @@
 	</div>
 	
 	<hr class= "hline">
+	</hr>
 	
 	<div class="about">
-	 about
+		<div class="aboutContent">
+			<div class="aboutTitle">
+				ContactUs
+			</div>
+			<hr>
+			this is the content...
+		</div>
 	</div>
 
 </div>

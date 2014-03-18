@@ -6,7 +6,7 @@
 %>
 <meta charset="ISO-8859-1">
 <link rel="stylesheet" type="text/css" href="Container.css">
-<title>UserHome</title>
+<title>GuestHome</title>
 </head>
 <body>
 
@@ -25,9 +25,27 @@
 	</div>
 	
 	<hr class= "hline">
+	</hr>
 	
-	<div class="about">
-	 about
+	<div class="eventCal">
+	 	<div class="events">
+	 		<div class="search">
+	 			Type to search events
+	 		</div>
+	 		
+	 		<div class="eventList">
+	 			Events go here
+	 		</div>
+	 		
+	 		
+	 	</div>
+	 	
+	 	<div class="calendar">
+	 		<div class="gapi">
+	 			GAPI goes here
+	 		</div>
+	 		
+	 	</div>
 	</div>
 
 </div>
