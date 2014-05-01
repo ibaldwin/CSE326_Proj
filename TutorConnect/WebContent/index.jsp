@@ -8,7 +8,6 @@
 <head>
 <link rel="stylesheet" type="text/css" href="template.css">
 <script src="http://code.jquery.com/jquery-latest.js"></script>
-<script src="jquery.cookie.js"></script>
 <script src = "javascript.js"></script>
 
 

@@ -1,4 +1,4 @@
-package myproject;
+package servlets;
 
 import java.io.IOException;
 
@@ -9,10 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import databaseHandler.Controller;
-import event.Event;
 
 /**
  * Servlet implementation class DeleteServlet
+ * Handles the post request for delete event form
  */
 public class DeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

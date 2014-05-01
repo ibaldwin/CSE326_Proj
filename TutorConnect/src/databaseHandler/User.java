@@ -4,6 +4,10 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+/**
+ * Responsible for storing all user data
+ *
+ */
 public class User {
 		private String name;
 		private String password;
@@ -42,6 +46,9 @@ public class User {
 		
 		/**
 		 * Adds a new user to the table
+		 * @param connection object for the database connection
+		 * @param user to hold the user credentials
+		 * @return boolean indicating status of DB query
 		 **/
 		protected static boolean addUser(Connection c, User user){
 			
@@ -72,7 +79,10 @@ public class User {
 		}
 		
 		/**
-		 * Adds a new user to the table
+		 * Checks if a user exists in the DB
+		 * @param connection object for the database connection
+		 * @param user to hold the user credentials
+		 * @return boolean indicating status of DB query
 		 **/
 		protected static boolean checkUser(Connection c, User user){
 			
@@ -98,6 +108,11 @@ public class User {
 			return false;
 		}
 		
+		/**
+		 * Returns the username
+		 * @param user object
+		 * @return username
+		 **/
 		protected static String getUser(User user){
 			return user.getName();
 		}

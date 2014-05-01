@@ -9,13 +9,17 @@ import java.util.ArrayList;
 
 import event.Event;
 
+/**
+ * Responsible for the Database connection
+ *
+ */
 public class Database
 {
 	private Connection c;
 	
 	
 	
-	//who needs comments
+	//Constructor which creates the database connection
 	public Database(){
 		try {
 			Class.forName("org.sqlite.JDBC");
@@ -31,6 +35,7 @@ public class Database
 		
 	}
 	
+	//method to close the connection
 	public void exterminate(){
 		try {
 			c.close();
@@ -90,6 +95,7 @@ public class Database
   
   /**
    * Adds a new event to the table
+   * @param event containing all the event details  
    **/
   public void createEntry(Event event)
   {
@@ -114,6 +120,12 @@ public class Database
 		  System.out.println("Entry created successfully");
 	  }
   
+  /**
+   * Deletes an entry from the table
+   * @param username the username to verify ownership of an event
+   * @param id the event id of the event to delete
+   * @return boolean with status of the query
+   */
   public boolean deleteEntry(String username, int id) {
 		  Statement stmt = null;
 		  try {
@@ -139,9 +151,9 @@ public class Database
 		  System.out.println("deleted event successfully");
 		  return true;
   	}
-  
   /**
-   * Deletes an event from the table
+   * select all entry from the table
+   * @return arrayList<event> with a list of event objects
    */
   public ArrayList<Event> selectEntry()
   {
@@ -170,6 +182,11 @@ public class Database
 	  return eventList;
   }
   
+  /**
+   * returns the list of entries matching the search string
+   * @param searchString the string that is searched
+   * @return ArrayList<Event> list of all the events matching the search
+   */
   public ArrayList<Event> searchedEntry(String searchString) {
 	  ArrayList<Event> searchList = new ArrayList<Event>();  
 	  Statement stmt = null;
@@ -196,6 +213,11 @@ public class Database
 	  return searchList;
   }
   
+  /**
+   * returns the list of entries matching username
+   * @param username of the user
+   * @return ArrayList<Event> list of all the events matching the username
+   */
   public ArrayList<Event> myEntries(String username) {
 	  ArrayList<Event> myEventList = new ArrayList<Event>();  
 	  Statement stmt = null;
@@ -229,10 +251,18 @@ public class Database
 	  
   }
   
+  /**
+	 * Adds a new user's credetnials to the user table using the DB connection object
+	 * @return boolean showing the status of the sql query
+	 */
   protected boolean addUser(User user){
 	  return User.addUser(c, user);	  
   }
   
+  /**
+	 * Checks whether a user's credentials exists in our database 
+	 * @return boolean showing the status of the sql query
+	 */
   protected boolean userExist(User user){
 	  return User.checkUser(c, user);
   }

@@ -1,4 +1,5 @@
-	
+
+	//Function to set cookie
 	function setCookie(cname,cvalue,exdays) {
 		var d = new Date();
 		d.setTime(d.getTime()+(exdays*24*60*60*1000));
@@ -6,6 +7,7 @@
 		document.cookie = cname + "=" + cvalue + "; " + expires;
 	}
 	
+	//Function to get cookie based on the key
 	function getCookie(cname) {
 		var name = cname + "=";
 		var ca = document.cookie.split(';');
@@ -17,19 +19,20 @@
 		return "";
 	}
 	
+	//Function used to delete a cookie
 	function deleteCookie() {
 		document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
 	}
 	
+	//ajax call to the servlet
 	$.ajax({
 		  url: 'Servlet',
 		  cache: false
-	})
-	
-  	.done(function( html ) {
+	}).done(function( html ) {
   		$( "#content" ).append( html );
 	});
-			
+	
+	//Function to refresh the home screen
 	function refreshHome(){
 		$('#container').show();
      	$('#addButton').show();
@@ -42,13 +45,14 @@
      	$('#eventBar').show();
     	$('#searchContainer').show();
          var home="home";
-          /* alert("inside homebutton click event");  */
+          
         $.get('Servlet',{page:home},function(responseText) { 
              $('#content').html(responseText);  
-             //alert(responseText);
+             
          });	
 	}
 	
+	//jQuery function that runs on loading the web page
     $(document).ready(function() {   
     	
 	   	$('#addForm').hide();
@@ -56,6 +60,7 @@
 	   	$('#loginContent').hide();
 	   	$('#createLoginContent').hide();
 	   	
+	   	//Get request to the servlet to get events for home page
 	   	$.get('Servlet', "page", function(responseText) { 
 	   		$('#content').html(responseText);  
 	   	});
@@ -65,10 +70,12 @@
     	} else{
     		$('#welcometext').text("Login");
     	}
-   
+    			//Click of home button
                 $('#homebutton').click(function(event) { 
                 	refreshHome();
                 });
+                
+                //Click of welcome text
                 $('#welcometext').click(function(event) {
                 	var text = $('#welcometext').text();
                 	if($.trim(text) == 'Login'){
@@ -80,7 +87,7 @@
                 		if (answer){
 							deleteCookie();
 							$('#welcometext').text("Login");
-							//alert(getCookie("username"));
+							
 							var home="home";
 		                	$.get('Servlet',{page:home},function(responseText) { 
 		                        $('#content').html(responseText);
@@ -89,6 +96,7 @@
                 	}
                 	
                 });
+                //Click of about link
                 $('#about').click(function(event) { 
                 	
                 	$('#eventBar').hide();
@@ -100,6 +108,8 @@
                         //alert(responseText);
                     });
                 });
+                
+                //Click of contact us link
                 $('#contact').click(function(event) { 
                 	$('#eventBar').hide();
                 	$('#searchContainer').hide();
@@ -110,6 +120,8 @@
                         //alert(responseText);
                     });
                 });
+                
+                //Click of the add event link
                 $('#addButton').click(function(event) {  
                 	if(getCookie("username") != ""){
                 		$('#addForm').show();
@@ -119,6 +131,7 @@
                 	}
           		});
                 
+                //Click of the myevents link
                 $('#myEvents').click(function(event) {  
                 	var home = "myEvents";
                 	if(getCookie("username") != ""){
@@ -132,6 +145,7 @@
                 	}
           		});
                 
+                //Click of the delete event link
                 $('#deleteButton').click(function(event) {
                 	//alert("delete button clicked");
                 	if(getCookie("username") != ""){
@@ -141,17 +155,20 @@
                 		alert("You must be logged in to delete an Event");
                 	}
           		});
-                  
+                
+                //click of the add new user link
                 $('#newUserLink').click(function(event) {  
                 	$('#createLoginContent').show();
                 	$('#loginContent').hide();
                     });
                 
+                //Click of the return to login page link
                 $('#returnToLogin').click(function(event){
                 	$('#loginContent').show();
                 	$('#createLoginContent').hide();
                 });
                 
+                //Submit of the search form
                 $('form[name="searchBox"]').submit(function(event) { 
                 	event.preventDefault();
                 	var search = $.trim($('#search').val());
@@ -174,6 +191,7 @@
                 	
                });
                 
+                //Submit of the add event form
                 $('form[name="eventForm"]').submit(function(event){
                 	//event.preventDefault();
                 	var title = $("#Title").val();
@@ -192,34 +210,28 @@
                 	
 	                	$.post('Servlet', { CreatorName : string},
 	                			   function(responseText) {
-	                			     //alert(responseText);
 	                			     response = responseText;
 	                			   });
                 	}
-                    //alert("Submitted");
-                   //$('#content').html(response);
+                    
                   });
                 
+                //Submit of the delete event form
                 $('form[name="deleteEventForm"]').submit(function(event){
                 	event.preventDefault();
                 	var deleteID = $.trim($('#deleteID').val());
-                	//alert("ID before: " + deleteID);
-                	var response;
+                	var response;               	
                 	
-                	
-                	
-                	$.post('DeleteServlet', { deleteID : deleteID},
+                		$.post('DeleteServlet', { deleteID : deleteID},
                 			function(responseText) {
-                				//alert("ResponseText: " + responseText);
-                				//alert("ID: " + deleteID);
-                		
+                				                		
                 				response = responseText;
                 				if(response == "success"){
                 					alert("Event Deleted");
                 				} else {
                 					alert("Don't have access to delete event");
                 				}
-                				//alert("Response: " + response);
+                				
                 			});
                 	 
                 	//code for refreshing my events after delete
@@ -232,15 +244,14 @@
                 	//code for refreshing my events ends here
                 });
                 
+                //Submit of the login form
                 $('form[name="loginForm"]').submit(function(event){
                 	event.preventDefault();
                 	var username =  $("#Username").val();
                 	var password =  $("#Password").val();
               
                 	var string = username.concat("#!", password);
-                	var response;
-                	//alert("inside loginSubmit");
-                	
+                	                	                	
                 	$.post('LoginServlet', { Username : string},
                 			   function(response) {
                 			     if(response == "success"){
@@ -254,10 +265,10 @@
                 			     }
                 			     response = responseText;
                 			   });
-                    //alert("Submitted Login");
-                   //$('#content').html(response);
-                		
+                                   		
                   });
+                
+                //Submit of the add a new user form
                 $('form[name="createLoginForm"]').submit(function(event){
                 	event.preventDefault();
                 	var username =  $("#createUsername").val();
@@ -275,7 +286,6 @@
                 			     }
                 			     response = responseText;
                 			   });
-                    //alert("Submitted Login");
-                   //$('#content').html(response);
+                   
                   });
             });

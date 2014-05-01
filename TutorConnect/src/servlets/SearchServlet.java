@@ -1,4 +1,4 @@
-package myproject;
+package servlets;
 
 import java.io.IOException;
 
@@ -8,19 +8,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import databaseHandler.Controller;
-import databaseHandler.User;
-
 
 /**
- * Servlet implementation class LoginServlet
+ * Servlet implementation class SearchServlet
+ * Handles the post request for search for an event
  */
-public class LoginServlet extends HttpServlet {
+public class SearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	      
+       
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginServlet() {
+    public SearchServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,9 +28,8 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 	}
-
+		  
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -39,28 +37,27 @@ public class LoginServlet extends HttpServlet {
 		String page = null;
 	        try{
 	        	
-	        	System.out.println("inside doPost LoginServlet");
+	        	System.out.println("inside doPost SearchServlet");
 	        	//System.out.println("Request: "+ request.getLocalName().toString());
 	        	
-	        	if(!(request.getParameter("Username").toString().isEmpty())){
+	        	
+	        	if(!(request.getParameter("search").toString().isEmpty())){
+	        		String search = request.getParameter("search").toString();
+	        		System.out.println("Searching for: " + search);
 	        		
-	        		String loginInfo = request.getParameter("Username").toString();
-	        		System.out.println("Checking user : user info : "+loginInfo);
-	        		User user = new User(loginInfo);
-	        		boolean check = Controller.userExist(user);	       	
-		        	if(check){
-		        		System.out.println("userExist returned true");
-		        		/*Cookie loginCookie = new Cookie("user", user.getName());
-		        		loginCookie.setMaxAge(30*60);
-		        		response.addCookie(loginCookie);*/
-		        		page = "success";
-		        	} else  {
-		        		System.out.println("username and password did not match");
-		        		page = "failed";
-		        	}
+	        		page = Controller.getSearchedEvents(search);
+	        		
+	        		if(Controller.hasSearched()){
+	        			//page = Controller.getSearchedEvents(search);
+	        			System.out.println("SEARCH SERVLET doGet");
+	        		} else{
+	        			page = null;
+	        		}
+	        		
+	        		System.out.println("events searched");
 		           
 	        	}
-	        	System.out.println("Exiting LoginServlet doPost");
+	        	System.out.println("Exiting SearchServlet doPost");
 	        	response.setContentType("text/plain");  
 	        	response.setCharacterEncoding("UTF-8"); 
 	        	response.getWriter().write(page); 
@@ -70,7 +67,5 @@ public class LoginServlet extends HttpServlet {
 	      ex.getStackTrace();
 	      }
 	}
-	
-	
 
 }

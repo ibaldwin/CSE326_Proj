@@ -13,9 +13,9 @@ public class Controller {
 	private static Database db = null; // Holds database connection
 	private static boolean searched = false;
 	
-	/*
+	/**
 	 * Gets a connection to the database
-	 * @return
+	 * @return db the database object
 	 */
 	private static Database getDb() {
 		System.out.println("inside getDb");
@@ -39,12 +39,21 @@ public class Controller {
 		System.out.println("entry created");
 	}
 	
+	/**
+	 * Delete an event in the database
+	 * @param username the username to check when deleting.
+	 * @param id the event id for the event to be deleted
+	 */
 	public static boolean deleteEvent(String username, String id) {
 		System.out.println("inside deleteEvent");
 		return getDb().deleteEntry(username, Integer.parseInt(id));
 		//System.out.println("entry deleted");
 	}
 	
+	/**
+	 * Gets the event list from the database
+	 * @return entries ArrayList<event> the list of event objects from DB.
+	 */
 	public static String getEventList() {
 		String entries = "";
 		System.out.println("inside getEventList");
@@ -56,6 +65,10 @@ public class Controller {
 		return entries;
 	}
 	
+	/**
+	 * Gets the event list from the database matching search string
+	 * @return entries ArrayList<event> the list of event objects from DB.
+	 */
 	public static String getSearchedEvents(String searchString) {
 		String entries = "";
 		System.out.println("inside getSearchedEvents");
@@ -72,6 +85,10 @@ public class Controller {
 		return entries;
 	}
 	
+	/**
+	 * Gets the event list from the database matching username
+	 * @return entries ArrayList<event> the list of event objects from DB.
+	 */
 	public static String getMyEvents(String username) {
 		String entries = "";
 		System.out.println("inside getEventList");
@@ -85,14 +102,26 @@ public class Controller {
 		return entries;
 	}
 	
+	/**
+	 * Adds a new user's credetnials to the user table using the DB connection object
+	 * @return boolean showing the status of the sql query
+	 */
 	public static boolean addUser(User user){
 		 return getDb().addUser(user);
 	  }
-	  
+	
+	/**
+	 * Checks whether a user's credentials exists in our database 
+	 * @return boolean showing the status of the sql query
+	 */
 	public static boolean userExist(User user){
 		  return getDb().userExist(user);
 	  }
-	  
+	
+	/**
+	 * Checks for the status of search 
+	 * @return boolean showing the status of the sql query for search
+	 */
 	public static boolean hasSearched(){
 		if(searched == false){
 			return false;

@@ -1,4 +1,4 @@
-package myproject;
+package servlets;
 
 import java.io.IOException;
 
@@ -8,17 +8,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import databaseHandler.Controller;
+import databaseHandler.User;
 
 /**
- * Servlet implementation class SearchServlet
+ * Servlet implementation class NewUserServlet
+ * Handles the post request for adding a new user
  */
-public class SearchServlet extends HttpServlet {
+public class NewUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SearchServlet() {
+    public NewUserServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,8 +29,9 @@ public class SearchServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 	}
-		  
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -36,27 +39,24 @@ public class SearchServlet extends HttpServlet {
 		String page = null;
 	        try{
 	        	
-	        	System.out.println("inside doPost SearchServlet");
+	        	System.out.println("inside doPost NewUserServlet");
 	        	//System.out.println("Request: "+ request.getLocalName().toString());
 	        	
-	        	
-	        	if(!(request.getParameter("search").toString().isEmpty())){
-	        		String search = request.getParameter("search").toString();
-	        		System.out.println("Searching for: " + search);
+	        	if(!(request.getParameter("createUsername").toString().isEmpty())) {
 	        		
-	        		page = Controller.getSearchedEvents(search);
-	        		
-	        		if(Controller.hasSearched()){
-	        			//page = Controller.getSearchedEvents(search);
-	        			System.out.println("SEARCH SERVLET doGet");
-	        		} else{
-	        			page = null;
-	        		}
-	        		
-	        		System.out.println("events searched");
-		           
+	        		String loginInfo = request.getParameter("createUsername").toString();
+	        		System.out.println("Creating user :"+ loginInfo);
+	        		User user = new User(loginInfo);
+	        		boolean check = Controller.addUser(user);	       	
+		        	if(check){
+		        		System.out.println("addUser returned true");		        		
+		        		page = "success";
+		        	} else  {
+		        		System.out.println("call for addUser failed");
+		        		page = "failed";
+		        	}
 	        	}
-	        	System.out.println("Exiting SearchServlet doPost");
+	        	System.out.println("Exiting NewUserServlet doPost");
 	        	response.setContentType("text/plain");  
 	        	response.setCharacterEncoding("UTF-8"); 
 	        	response.getWriter().write(page); 
@@ -66,5 +66,4 @@ public class SearchServlet extends HttpServlet {
 	      ex.getStackTrace();
 	      }
 	}
-
 }

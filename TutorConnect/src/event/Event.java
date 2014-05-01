@@ -128,6 +128,11 @@ public class Event {
 		this.vote = vote;
 	}
 	
+	/**
+	 * Returns the html formatted string of an event
+	 *@return Formatted string with html for each event 
+	 *
+	 */
 	public String stringToHTML() {
 		return "<div style= \"width:100%; background-color: white; color: black; border-radius: 10px; \"><div style= \" width:100%;box-shadow: 2px 2px 1px grey; background-color: #15B1D3; padding: .5%; border-radius: 10px;\"> <span style= \"font-size:x-large;\">" + this.getTitle() +
 				"<span style= \"font-size:medium; float: right; \" > &nbsp; RSVP: " + this.getRsvp() +
@@ -139,6 +144,11 @@ public class Event {
 				"</span></div></div><hr/>";
 	}
 	
+	/**
+	 * Returns the html formatted string of an event for myEvents
+	 *@return Formatted string with html for each event 
+	 *
+	 */
 	public String myEventsStringToHTML() {
 		return "<div style= \"width:100%; background-color: white; color: black; border-radius: 10px; \"><div style= \" width:100%;box-shadow: 2px 2px 1px grey; background-color: #15B1D3; padding: .5%; border-radius: 10px;\"> <span style= \"font-size:x-large;\"> ID: " + this.getId() + "&emsp;-&emsp;" + this.getTitle() +
 				"<span style= \"font-size:medium; float: right;\"> &nbsp; RSVP: " + this.getRsvp() +

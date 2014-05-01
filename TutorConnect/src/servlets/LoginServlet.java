@@ -1,4 +1,4 @@
-package myproject;
+package servlets;
 
 import java.io.IOException;
 
@@ -10,16 +10,18 @@ import javax.servlet.http.HttpServletResponse;
 import databaseHandler.Controller;
 import databaseHandler.User;
 
+
 /**
- * Servlet implementation class NewUserServlet
+ * Servlet implementation class LoginServlet
+ * Handles the post request for login form
  */
-public class NewUserServlet extends HttpServlet {
+public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	      
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NewUserServlet() {
+    public LoginServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,24 +40,28 @@ public class NewUserServlet extends HttpServlet {
 		String page = null;
 	        try{
 	        	
-	        	System.out.println("inside doPost NewUserServlet");
+	        	System.out.println("inside doPost LoginServlet");
 	        	//System.out.println("Request: "+ request.getLocalName().toString());
 	        	
-	        	if(!(request.getParameter("createUsername").toString().isEmpty())) {
+	        	if(!(request.getParameter("Username").toString().isEmpty())){
 	        		
-	        		String loginInfo = request.getParameter("createUsername").toString();
-	        		System.out.println("Creating user :"+ loginInfo);
+	        		String loginInfo = request.getParameter("Username").toString();
+	        		System.out.println("Checking user : user info : "+loginInfo);
 	        		User user = new User(loginInfo);
-	        		boolean check = Controller.addUser(user);	       	
+	        		boolean check = Controller.userExist(user);	       	
 		        	if(check){
-		        		System.out.println("addUser returned true");		        		
+		        		System.out.println("userExist returned true");
+		        		/*Cookie loginCookie = new Cookie("user", user.getName());
+		        		loginCookie.setMaxAge(30*60);
+		        		response.addCookie(loginCookie);*/
 		        		page = "success";
 		        	} else  {
-		        		System.out.println("call for addUser failed");
+		        		System.out.println("username and password did not match");
 		        		page = "failed";
 		        	}
+		           
 	        	}
-	        	System.out.println("Exiting NewUserServlet doPost");
+	        	System.out.println("Exiting LoginServlet doPost");
 	        	response.setContentType("text/plain");  
 	        	response.setCharacterEncoding("UTF-8"); 
 	        	response.getWriter().write(page); 
@@ -65,4 +71,7 @@ public class NewUserServlet extends HttpServlet {
 	      ex.getStackTrace();
 	      }
 	}
+	
+	
+
 }

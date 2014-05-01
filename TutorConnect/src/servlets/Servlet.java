@@ -1,4 +1,4 @@
-package myproject;
+package servlets;
 
 import java.io.IOException;
 
@@ -14,7 +14,8 @@ import event.Event;
 //import event.Filters;
 
 /**
- * Servlet implementation class Servlet
+ * Servlet is the first servlet that interacts with the home page
+ * It handles all the get requests and the post request for adding new event
  */
 @WebServlet("/Servlet")
 public class Servlet extends HttpServlet {
